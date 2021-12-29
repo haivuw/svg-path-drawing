@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 
 const LENGTH = 57507.9960937557;
 const OFFSET = -49747.6;
 const ARRAY = 7682.36;
 export const Path = () => {
   const [offset, setOffset] = useState(999999);
-  const lightPathRef = useRef();
+  const lightPathRef = useRef<SVGPathElement>(null);
   useEffect(() => {
-    const length = lightPathRef.current.getTotalLength();
-    setOffset(-length);
+    if (lightPathRef.current) {
+      const length = lightPathRef.current.getTotalLength();
+      setOffset(-length);
+    }
   }, []);
 
   useEffect(() => {
